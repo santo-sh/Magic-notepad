@@ -16,6 +16,9 @@ const server = require('http').Server(app)
 const port = process.env.PORT
 const path = require('path')
 app.set('view engine', 'ejs')
+console.log(path.join(__dirname, "../public"))
+app.use(express.static(path.join(__dirname, "../public")));
+
 app.use(bodyParser.urlencoded({
     extended: true
 }))
