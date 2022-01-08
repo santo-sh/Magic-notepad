@@ -1,0 +1,57 @@
+<%- include('partials/header.ejs') %> 
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Magic Notes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <button type="button" class="btn btn-danger" onclick="document.location.href='/logout'">Logout</button>
+    </div>
+</nav>
+
+<div class="container mt-3">
+    <h1>Welcome to Magic Notes</h1>
+    <div class="card">
+        <form class="" action="/addNote" method="post">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card-body">
+                <h5 class="card-title">Add a note</h5>
+                <div class="form-group">
+                    <textarea id="addTxt" class="form-control" id="exampleFormControlTextarea1" name="textbox" rows="7"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mx-2" id="addBtn">Add Note</a>
+                <!-- <button class="btn btn-primary mx-2" id="voiceNote">Use Voice</button> -->
+            </div>
+        </form>
+    </div>
+    <hr>
+    <%if(result === null || result.length === 0){%>
+        <h1>Nothing to show. Add some notes</h1>
+        <%}else{%>
+            <h1>Your Notes</h1>
+            <hr>
+            <div id="notes" class="row container-fluid">
+                <%result.forEach(note=>{%>
+                    <%if(!(note == null && note=="")){%>
+                        <div class="card col-md-4 col-lg-3 my-2 mx-2 noteCard" style="width: 15rem;">
+                            <div class="card-body">
+                                <form action="/deleteNote" method="post">
+                                    <h5 class="card-title">Note</h5>
+                                    <p class="card-text">
+                                        <%=note.note%>
+                                    </p>
+                                    <button onclick="this.form.submit()" name="submit" value="<%=note.note%>" class="btn btn-primary">Delete Note
+                        </button>
+                                </form>
+                            </div>
+                        </div>
+                        <%}});%>
+                            <%}%>
+
+            </div>
+</div>
+
+<%- include('partials/footer.ejs') %> 
